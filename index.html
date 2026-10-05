@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-5Ec9o8xd7LbuRdiw6PZhDUEzGmTbC1vWN7nDULMaTxY='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-YlYOXtNeZ0Lq6IA8B7Pa0gV6vl9/sS3oFaTsVozskzI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; font-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Etkinliğiniz Burada · Bugün İstanbul'da</title>
 <meta name="description" content="İstanbul'da bugün, yarın ve hafta sonu ne var? Konser, tiyatro, sergi ve festivaller tek listede; her sabah güncellenir.">
@@ -117,6 +117,18 @@ nav.sekmeler button[hidden] { display: none; }
 .aylar button { border: 1px solid var(--cizgi); background: var(--yuzey); color: var(--murekkep); border-radius: 8px;
   padding: 6px 11px; font: 600 .84rem/1 var(--f-govde); cursor: pointer; }
 .aylar button[aria-pressed="true"] { background: var(--bogaz); color: var(--bogaz-metin); border-color: var(--bogaz); }
+.tarih-secimi { display: grid; gap: 8px; margin: 4px 0 2px; }
+.tarih-alanlari { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tarih-alanlari label { display: grid; gap: 3px; font: 500 .72rem/1.2 var(--f-veri); letter-spacing: .05em; text-transform: uppercase;
+  color: var(--soluk); min-width: 0; }
+.tarih-alanlari input { font: 500 .92rem var(--f-govde); padding: 8px 10px; border-radius: 10px; border: 1px solid var(--cizgi);
+  background: var(--yuzey); color: var(--murekkep); min-width: 0; width: 100%; }
+.paylas { justify-self: start; border: 0; background: none; padding: 2px 0; color: var(--soluk); font: 600 .78rem var(--f-govde);
+  cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.paylas:hover { color: var(--bogaz); }
+.paylas-metin { font: 500 .75rem var(--f-veri); width: 100%; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--cizgi);
+  background: var(--zemin); color: var(--murekkep); }
+.bilet.vurgulu { border-color: var(--bogaz); box-shadow: 0 0 0 2px var(--bogaz-zemin); }
 .aciklama { margin: 2px 0 8px; color: var(--soluk); font-size: .88rem; max-width: 65ch; }
 .daha { display: block; width: 100%; margin-top: 12px; padding: 11px; border-radius: 12px; border: 1px dashed var(--cizgi);
   background: var(--yuzey); color: var(--bogaz); font: 650 .92rem var(--f-govde); cursor: pointer; }
@@ -165,7 +177,7 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
     <button role="tab" data-sekme="bugun" aria-selected="true">Bugün <span class="n"></span></button>
     <button role="tab" data-sekme="yarin" aria-selected="false">Yarın <span class="n"></span></button>
     <button role="tab" data-sekme="hafta_sonu" aria-selected="false">Hafta sonu <span class="n"></span></button>
-    <button role="tab" data-sekme="takvim" aria-selected="false">3 ay <span class="n"></span></button>
+    <button role="tab" data-sekme="takvim" aria-selected="false">Takvim <span class="n"></span></button>
     <button role="tab" data-sekme="satis" aria-selected="false">Bilet takibi <span class="n"></span></button>
     <button role="tab" data-sekme="gece" aria-selected="false">Gece <span class="n"></span></button>
     <button role="tab" data-sekme="her_gun" aria-selected="false">Her gün <span class="n"></span></button>
@@ -179,11 +191,18 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
       <select id="ilce" aria-label="İlçe"><option value="">Tüm ilçeler</option>
         <option>Adalar</option><option>Arnavutköy</option><option>Ataşehir</option><option>Avcılar</option><option>Bakırköy</option><option>Bayrampaşa</option><option>Başakşehir</option><option>Beykoz</option><option>Beylikdüzü</option><option>Beyoğlu</option><option>Beşiktaş</option><option>Büyükçekmece</option><option>Esenyurt</option><option>Eyüpsultan</option><option>Fatih</option><option>Kadıköy</option><option>Kartal</option><option>Kağıthane</option><option>Küçükçekmece</option><option>Maltepe</option><option>Pendik</option><option>Sancaktepe</option><option>Sarıyer</option><option>Silivri</option><option>Sultangazi</option><option>Tuzla</option><option>Zeytinburnu</option><option>Ümraniye</option><option>Üsküdar</option><option>Şile</option><option>Şişli</option></select>
       <select id="kategori" aria-label="Tür"><option value="">Tüm türler</option>
-        <option value="konser">Konser</option><option value="klasik_muzik">Klasik müzik</option><option value="opera_bale">Opera &amp; bale</option><option value="tiyatro">Tiyatro</option><option value="stand_up">Stand-up</option><option value="gece_hayati">Gece hayatı</option><option value="sergi">Sergi</option><option value="festival">Festival</option><option value="film">Film</option><option value="cocuk">Çocuk</option><option value="spor">Spor</option><option value="atolye">Atölye</option><option value="soylesi">Söyleşi &amp; panel</option><option value="gezi">Gezi</option><option value="dans">Dans</option><option value="diger">Diğer</option></select>
+        <option value="atolye">Atölye</option><option value="cocuk">Çocuk</option><option value="dans">Dans</option><option value="diger">Diğer</option><option value="festival">Festival</option><option value="film">Film</option><option value="gece_hayati">Gece hayatı</option><option value="gezi">Gezi</option><option value="klasik_muzik">Klasik müzik</option><option value="konser">Konser</option><option value="opera_bale">Opera &amp; bale</option><option value="sergi">Sergi</option><option value="soylesi">Söyleşi &amp; panel</option><option value="spor">Spor</option><option value="stand_up">Stand-up</option><option value="tiyatro">Tiyatro</option></select>
       <select id="grup" aria-label="Düzenleyen"><option value="">Tüm düzenleyenler</option>
         <option value="kurum">Kamu ve kurumlar</option><option value="ozel">Özel</option></select>
       <label><input type="checkbox" id="ucretsiz"> Ücretsiz</label>
     </div>
+  </div>
+  <div id="tarihSecimi" class="tarih-secimi" hidden>
+    <div class="tarih-alanlari">
+      <label>Başlangıç <input type="date" id="tBas"></label>
+      <label>Bitiş <input type="date" id="tSon"></label>
+    </div>
+    <div class="aylar" id="kisayollar"></div>
   </div>
   <p class="sayac" id="sayac" aria-live="polite"></p>
   <div id="harita" class="harita" hidden></div>
@@ -218,7 +237,8 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
   var AY_UZUN = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
   var GUN = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
   var GUNLUK = { bugun: 1, yarin: 1, hafta_sonu: 1, gece: 1 };
-  var SAYFA = 120, gosterilen = SAYFA, ay = "";
+  var SAYFA = 120, gosterilen = SAYFA;
+  var tBas = "", tSon = "", vurgula = "";   // takvim aralığı (YYYY-AA-GG) ve bağlantıyla gelinen etkinlik
   var SATIS = V.satis || { cikacak: [], yeni: [], hizli: [], tukendi: [] };
   var $ = function (id) { return document.getElementById(id); };
   var sekme = "bugun";
@@ -332,8 +352,25 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
       bl.appendChild(a);
     });
     b.appendChild(bl);
+    var pb = el("button", "paylas", "Bağlantıyı kopyala"); pb.type = "button";
+    pb.addEventListener("click", function () { paylas(e.id, pb); });
+    b.appendChild(pb);
     k.appendChild(b);
+    k.dataset.ids = g.seanslar.map(function (x) { return x.id; }).join(" ");
+    if (vurgula && k.dataset.ids.split(" ").indexOf(vurgula) >= 0) k.classList.add("vurgulu");
     return k;
+  }
+
+  // Etkinliğe özel bağlantı: adres#e-<kimlik>; açılınca o gün seçilir ve kart vurgulanır
+  function paylas(id, dugme) {
+    var url = location.href.split("#")[0] + "#e-" + id;
+    var bitti = function () { dugme.textContent = "Kopyalandı"; setTimeout(function () { dugme.textContent = "Bağlantıyı kopyala"; }, 2000); };
+    var goster = function () {
+      if (dugme.nextSibling && dugme.nextSibling.className === "paylas-metin") return;
+      var i = el("input", "paylas-metin"); i.value = url; i.readOnly = true; i.setAttribute("aria-label", "Etkinlik bağlantısı");
+      dugme.parentNode.insertBefore(i, dugme.nextSibling); i.focus(); i.select();
+    };
+    try { navigator.clipboard.writeText(url).then(bitti, goster); } catch (err) { goster(); }
   }
   function liste(gruplar, kip) { var l = el("div", "liste"); gruplar.forEach(function (g) { l.appendChild(kart(g, kip)); }); return l; }
   function bolum(kok, baslik, n) { var h = el("h2", "bolum", baslik); if (n != null) h.appendChild(el("small", null, n + " etkinlik")); kok.appendChild(h); }
@@ -421,6 +458,9 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
       if (s !== "harita") { b.querySelector(".n").textContent = n[s]; b.hidden = !n[s] && s !== sekme && s !== "bugun"; }
     });
     $("harita").hidden = sekme !== "harita";
+    $("tarihSecimi").hidden = sekme !== "takvim";
+    if (sekme === "takvim") kisayollariCiz();
+    adresiYaz();
     if (sekme === "harita") {
       var yerli = haritaKayitlari(); haritaCiz(yerli);
       $("sayac").textContent = yerli.length + " etkinlik haritada · konumu bilinenler, önümüzdeki iki hafta";
@@ -439,18 +479,8 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
       }
     } else if (sekme === "takvim") {
       var hepsi = kayitlar("takvim");
-      var aylar = []; hepsi.forEach(function (e) { var a = e.gun.slice(0, 7); if (aylar.indexOf(a) < 0) aylar.push(a); });
-      if (ay && aylar.indexOf(ay) < 0) ay = "";
-      var ab = el("div", "aylar");
-      [""].concat(aylar).forEach(function (a) {
-        var b = el("button", null, a ? ayAdi(a + "-01") : "Tümü"); b.type = "button";
-        b.setAttribute("aria-pressed", a === ay ? "true" : "false");
-        b.addEventListener("click", function () { ay = a; gosterilen = SAYFA; ciz(); });
-        ab.appendChild(b);
-      });
-      kok.appendChild(ab);
-      kok.appendChild(el("p", "aciklama", "Önümüzdeki üç ayın etkinlikleri, " + gunKisa(V.son_gun) + " tarihine kadar. Her gün tekrar edenler bu listede yok; onlar için Her gün sekmesine bakın."));
-      var secili = hepsi.filter(function (e) { return (!ay || e.gun.slice(0, 7) === ay) && !tekrarli(e); });
+      kok.appendChild(el("p", "aciklama", "Bir gün için yalnızca başlangıcı, aralık için iki tarihi de seçin. Liste " + gunKisa(V.son_gun) + " tarihine kadar gider; her gün tekrar edenler Her gün sekmesinde."));
+      var secili = hepsi.filter(function (e) { return (!tBas || e.gun >= tBas) && (!tSon || e.gun <= tSon) && !tekrarli(e); });
       var gruplar = grupla(secili); toplam = gruplar.length;
       var gunler = {}, sira = [];
       gruplar.slice(0, gosterilen).forEach(function (g) { if (!gunler[g.e.gun]) { gunler[g.e.gun] = []; sira.push(g.e.gun); } gunler[g.e.gun].push(g); });
@@ -504,10 +534,69 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
       var sg = grupla(kayitlar("sergiler")); if (sg.length) kok.appendChild(liste(sg, "sergi")); toplam = sg.length;
     }
     var aciklama = { bugun: "bugün", yarin: "yarın", hafta_sonu: "hafta sonu", gece: "bu gece", her_gun: "her gün tekrar eden",
-      takvim: ay ? ayAdi(ay + "-01") : "önümüzdeki üç ay", satis: "bilet takibinde",
+      takvim: aralikMetni(), satis: "bilet takibinde",
       festivaller: "festivallerde, önümüzdeki üç ay", sergiler: "devam eden sergi" }[sekme];
     $("sayac").textContent = toplam + " etkinlik · " + aciklama;
     if (!toplam && sekme !== "satis") kok.appendChild(el("p", "bos", "Bu seçimde etkinlik yok. Süzgeçleri gevşetmeyi deneyin."));
+  }
+
+  function isoGun(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+  function gunEkle(iso, n) { var d = tarih(iso); d.setDate(d.getDate() + n); return isoGun(d); }
+  function aralikMetni() {
+    if (!tBas && !tSon) return "önümüzdeki üç ay";
+    if (tBas && tBas === tSon) return gunUzun(tBas);
+    return (tBas ? gunKisa(tBas) : "bugün") + " – " + (tSon ? gunKisa(tSon) : gunKisa(V.son_gun));
+  }
+  function araligiKur(bas, son) {
+    if (bas && son && bas > son) { var x = bas; bas = son; son = x; }
+    tBas = bas || ""; tSon = son || ""; gosterilen = SAYFA;
+    $("tBas").value = tBas; $("tSon").value = tSon;
+  }
+  function kisayollar() {
+    var b = V.bugun_iso, hg = tarih(b).getDay();             // 0 = Pazar
+    var cmt = gunEkle(b, (6 - hg + 7) % 7), pzt = gunEkle(b, (8 - hg) % 7 || 7);
+    var liste = [["Tümü", "", ""], ["Bugün", b, b], ["Yarın", gunEkle(b, 1), gunEkle(b, 1)],
+      ["Bu hafta", b, gunEkle(pzt, -1)], ["Hafta sonu", hg === 0 ? b : cmt, hg === 0 ? b : gunEkle(cmt, 1)],
+      ["Gelecek hafta", pzt, gunEkle(pzt, 6)]];
+    var a = b.slice(0, 7);
+    for (var i = 0; i < 4; i++) {
+      var ilk = a + "-01", d = tarih(ilk); d.setMonth(d.getMonth() + 1); d.setDate(0);
+      var sonGun = isoGun(d);
+      if (ilk > V.son_gun) break;
+      liste.push([ayAdi(ilk), ilk < b ? b : ilk, sonGun > V.son_gun ? V.son_gun : sonGun]);
+      d.setDate(d.getDate() + 1); a = isoGun(d).slice(0, 7);
+    }
+    return liste;
+  }
+  function kisayollariCiz() {
+    var k = $("kisayollar"); k.textContent = "";
+    kisayollar().forEach(function (x) {
+      var b = el("button", null, x[0]); b.type = "button";
+      b.setAttribute("aria-pressed", x[1] === tBas && x[2] === tSon ? "true" : "false");
+      b.addEventListener("click", function () { araligiKur(x[1], x[2]); vurgula = ""; ciz(); });
+      k.appendChild(b);
+    });
+    $("tBas").min = $("tSon").min = V.bugun_iso; $("tBas").max = $("tSon").max = V.son_gun;
+  }
+  // Adres: #takvim, #t-2026-10-12 (tek gün), #t-2026-10-12-2026-10-18 (aralık), #e-<kimlik> (etkinlik)
+  function adresiYaz() {
+    var h = sekme;
+    if (sekme === "takvim" && (tBas || tSon)) h = "t-" + (tBas || V.bugun_iso) + (tSon && tSon !== tBas ? "-" + tSon : "");
+    if (vurgula) h = "e-" + vurgula;
+    try { history.replaceState(null, "", "#" + h); } catch (err) {}
+  }
+  function adresiOku() {
+    var h = (location.hash || "").slice(1), m;
+    if ((m = h.match(/^t-(\d{4}-\d{2}-\d{2})(?:-(\d{4}-\d{2}-\d{2}))?$/))) {
+      sekme = "takvim"; araligiKur(m[1], m[2] || m[1]);
+    } else if ((m = h.match(/^e-([0-9a-f]+)$/)) && E[m[1]]) {
+      var e = E[m[1]]; vurgula = e.id;
+      if (e.suregelen) sekme = "sergiler";
+      else if (tekrarli(e)) sekme = "her_gun";
+      else { sekme = "takvim"; araligiKur(e.gun, e.gun); }
+    } else if (h && document.querySelector('[data-sekme="' + h + '"]')) {
+      sekme = h;
+    }
   }
 
   function ozet() {
@@ -523,7 +612,7 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
   }
 
   document.querySelectorAll("nav.sekmeler button").forEach(function (b) {
-    b.addEventListener("click", function () { sekme = b.dataset.sekme; gosterilen = SAYFA;
+    b.addEventListener("click", function () { sekme = b.dataset.sekme; gosterilen = SAYFA; vurgula = "";
       try { sessionStorage.setItem("sekme", sekme); } catch (e) {} ciz(); });
   });
   ["ilce", "kategori", "grup", "ucretsiz"].forEach(function (id) { $(id).addEventListener("change", ciz); });
@@ -532,10 +621,23 @@ footer summary { cursor: pointer; font-weight: 600; color: var(--murekkep); marg
     clearTimeout(aramaZamani);
     aramaZamani = setTimeout(function () { gosterilen = SAYFA; ciz(); }, 180);
   });
-  if (!V.sekmeler[sekme] && sekme !== "festivaller" && !(sekme === "harita" && $("harita"))) sekme = "bugun";
-  if (sekme === "harita" && !document.querySelector('[data-sekme="harita"]')) sekme = "bugun";
+  if (!document.querySelector('[data-sekme="' + sekme + '"]')) sekme = "bugun";
+  // Başlangıç bitişi geçerse bitiş de oraya kayar (tek gün seçmek için yalnızca başlangıcı değiştirmek yeter)
+  $("tBas").addEventListener("change", function () {
+    var b = $("tBas").value, e = $("tSon").value;
+    araligiKur(b, !e || e < b ? b : e); vurgula = ""; ciz();
+  });
+  $("tSon").addEventListener("change", function () {
+    var b = $("tBas").value, e = $("tSon").value;
+    araligiKur(!b || (e && b > e) ? e : b, e); vurgula = ""; ciz();
+  });
+  adresiOku();
   ozet();
   ciz();
+  if (vurgula) {
+    var hedef = document.querySelector(".bilet.vurgulu");
+    if (hedef) hedef.scrollIntoView({ block: "center" });
+  }
 })();
 </script>
 </body>
