@@ -4,6 +4,6 @@
 
 **Sayfa:** https://tinyurl.com/etkinliginizburada (kısa bağlantı) · https://guraydemiray.github.io/etkinliginiz-burada/
 
-Her sabah otomatik güncellenir. Saat ve fiyatlar kaynak sitelerden alınır; bilet almadan önce kaynak sayfayı kontrol edin.
+Haftada bir, Cuma sabahları güncellenir. Saat ve fiyatlar kaynak sitelerden alınır; bilet almadan önce kaynak sayfayı kontrol edin.
 
 Instagram: [@rotanizburada](https://www.instagram.com/rotanizburada/)
